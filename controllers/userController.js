@@ -26,7 +26,7 @@ const createUser = (request, response) => {
       }
       let rows = results.rows[0];
       console.log(rows['user_id']);
-      response.status(201).send(rows['user_id']);
+      response.status(200).json(rows['user_id']);
     })
   }
 
