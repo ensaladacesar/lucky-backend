@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ensaladacesar/lucky-backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "pg": "^7.9.0"
   }
