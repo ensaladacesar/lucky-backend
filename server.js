@@ -26,6 +26,8 @@ app.get('/', (request, response) => {
 
 var userRoutes = require('./routes/userRoutes');
 userRoutes(app);
+var brandRoutes = require('./routes/brandRoutes');
+brandRoutes(app);
 
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
