@@ -10,4 +10,10 @@ module.exports = function(app) {
     app.route('/api/addFeatured')
       .post(productController.addFeatured);
 
+    app.route('/api/getByBrand')
+      .post(productController.getByBrand);
+
+    app.route('/api/searchProduct')
+      .post(productController.searchProduct);
+
 };
