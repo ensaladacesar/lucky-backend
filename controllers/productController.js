@@ -1,7 +1,7 @@
 var db =  require('../database/db.js');
 
 const getProducts = (request, response) => {
-    db.pool.query('SELECT * FROM products', (error, results) => {
+    db.pool.query('SELECT *, products.name as product_name, brands.name as brand_name, categories.name as categorie_name FROM products inner join brands on products.brand_id = brands.brand_id inner join categories on products.category_id = categories.category_id', (error, results) => {
       if (error) {
         response.status(400).send(error);
       }
@@ -55,10 +55,8 @@ const getByBrand = (request, response) => {
 
 const searchProduct = (request, response) => {
   const { keyword } = request.body;
-
-  console.log(keyword);
   
-  db.pool.query(`select * from products where lower(name) like lower('%${keyword}%')`,  (error, results) => {
+  db.pool.query(`SELECT *, products.name as product_name, brands.name as brand_name, categories.name as categorie_name FROM products INNER JOIN brands ON products.brand_id = brands.brand_id INNER JOIN categories ON products.category_id = categories.category_id WHERE lower(products.name) like lower('%${keyword}%')`,  (error, results) => {
     if (error) {
       response.status(400).send(error);
     }
@@ -69,10 +67,26 @@ const searchProduct = (request, response) => {
   });
 }
 
+const getProduct = (request, response) => {
+  const { product_id } = request.body
+
+  db.pool.query('SELECT * FROM products WHERE product_id = $1', [ product_id ], (error, results) => {
+    if (error) {
+      response.status(400).send(error);
+    }
+    else{
+      let rows = results.rows[0];
+      response.status(200).json(rows);
+    }
+    
+  });
+}
+
 module.exports = {
     getProducts,
     getFeatured,
     addFeatured,
     getByBrand,
-    searchProduct
+    searchProduct,
+    getProduct
   }

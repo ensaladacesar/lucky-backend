@@ -16,4 +16,7 @@ module.exports = function(app) {
     app.route('/api/searchProduct')
       .post(productController.searchProduct);
 
+    app.route('/api/getProduct')
+      .post(productController.getProduct);
+
 };
