@@ -1,14 +1,14 @@
 var db =  require('../database/db.js');
 
 const getUsers = (request, response) => {
-    db.pool.query('SELECT * FROM users', (error, results) => {
-      if (error) {
-        response.status(400).send(error);
-      }
-      else{
-        response.status(200).json(results.rows)
-      }
-    });
+  db.pool.query('SELECT * FROM users', (error, results) => {
+    if (error) {
+      response.status(400).send(error);
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+  });
 }
 
 const userExist = (request, response) => {
@@ -24,7 +24,6 @@ const userExist = (request, response) => {
     
   })
 }
-
 
 const createUser = (request, response) => {
   const { name, email, birthday } = request.body
@@ -70,10 +69,25 @@ const createUserCredit = (request, response) => {
   })
 }
 
+const getUserCredit = (request, response) => {
+  const { user_id } = request.body
+
+  db.pool.query('SELECT quantity FROM credit WHERE user_id = $1', [user_id], (error, results) => {
+    if (error) {
+      response.status(400).send(error);
+    }
+    else{
+      response.status(200).json(results.rows)
+    }
+    
+  })
+}
+
 module.exports = {
     getUsers,
     createUser,
     createUserPoints,
     createUserCredit,
-    userExist
+    userExist,
+    getUserCredit
   }

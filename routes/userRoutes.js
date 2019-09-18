@@ -15,4 +15,7 @@ module.exports = function(app) {
 
     app.route('/api/userExist')
       .post(userController.userExist);
+
+    app.route('/api/getUserCredit')
+      .post(userController.getUserCredit);
 };
