@@ -11,6 +11,17 @@ const getProducts = (request, response) => {
     });
 }
 
+const getCategories = (request, response) => {
+  db.pool.query('SELECT * FROM categories', (error, results) => {
+    if (error) {
+      response.status(400).send(error);
+    }
+    else{
+      response.status(200).json(results.rows);
+    }
+  });
+}
+
 const getFeatured = (request, response) => {
     db.pool.query('select *, products.name as product_name, brands.name as brand_name, categories.name as category_name from featured inner join products on featured.product_id = products.product_id inner join brands on products.brand_id = brands.brand_id inner join categories on products.category_id = categories.category_id', (error, results) => {
       if (error) {
@@ -128,5 +139,6 @@ module.exports = {
   getByBrand,
   searchProduct,
   getProduct,
-  addProduct
+  addProduct,
+  getCategories
 }

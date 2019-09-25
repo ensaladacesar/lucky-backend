@@ -4,6 +4,9 @@ module.exports = function(app) {
   app.route('/api/getProducts')
     .get(productController.getProducts);
 
+    app.route('/api/getCategories')
+    .get(productController.getCategories);
+
   app.route('/api/getFeatured')
     .get(productController.getFeatured);
 
